@@ -23,7 +23,13 @@ export const ProfileContainer = styled.article`
 		margin: 20px 0 20px;
 	}
 	h1 {
-		font-size: 5rem;
+		font-size: 3rem;
 		margin-bottom: 40px;
+	}
+	@media screen and (min-width: ${({ theme }) =>
+			theme.media.breakpoints.md}) {
+		h1 {
+			font-size: 5rem;
+		}
 	}
 `

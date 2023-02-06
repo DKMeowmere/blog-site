@@ -30,7 +30,7 @@ export default function CreateBlog() {
 		if (!image || !title || !body || !user) {
 			dispatch(
 				addAlert({
-					body: "Musisz podać chociaż jedną wartość do aktualizacji!",
+					body: "Musisz wprowadzić wszystkie dane bloga!",
 					type: "WARNING",
 				})
 			)
