@@ -247,9 +247,10 @@ export async function changeAvatar(req: CustomRequest, res: Response) {
 			throw Error("Nie znaleziono")
 		}
 
-		await fs.unlink(
-			path.resolve(`static/uploads/avatars/${prevUser.avatarUrl}`)
-		)
+		prevUser.avatarUrl &&
+			(await fs.unlink(
+				path.resolve(`static/uploads/avatars/${prevUser.avatarUrl}`)
+			))
 
 		const user = await User.findByIdAndUpdate(
 			id,
