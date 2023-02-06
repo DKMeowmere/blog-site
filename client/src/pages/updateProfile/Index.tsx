@@ -66,6 +66,12 @@ export default function UpdateProfile() {
 		const data = await res.json()
 
 		if (!res.ok) {
+			dispatch(
+				addAlert({
+					body: data.error,
+					type: "ERROR",
+				})
+			)
 			return
 		}
 

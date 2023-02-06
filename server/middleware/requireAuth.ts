@@ -22,7 +22,7 @@ async function requireAuth(
 
 		const { _id } = jwt.verify(
 			token,
-			process.env.TOKEN_SECRET ? process.env.TOKEN_SECRET : ""
+			process.env.TOKEN_SECRET ||  ""
 		) as JwtPayload
 		const user = await User.findById(_id)
 

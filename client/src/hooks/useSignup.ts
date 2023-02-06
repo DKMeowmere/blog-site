@@ -27,7 +27,6 @@ export const useSignup = () => {
 			headers: { "Content-Type": "application/json" },
 		})
 		const data = await res.json()
-		console.log(data)
 		if (!res.ok) {
 			setIsLoading(false)
 			setError(data.error)

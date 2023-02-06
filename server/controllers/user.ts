@@ -7,6 +7,7 @@ import mongoose, { isValidObjectId } from "mongoose"
 import CustomRequest from "../types/customRequest.js"
 import fs from "fs/promises"
 import path from "path"
+import isFileExisting from "../functions/isFileExisting.js"
 
 function createToken(_id: string) {
 	if (!process.env.TOKEN_SECRET) {
@@ -247,10 +248,14 @@ export async function changeAvatar(req: CustomRequest, res: Response) {
 			throw Error("Nie znaleziono")
 		}
 
-		prevUser.avatarUrl &&
-			(await fs.unlink(
+		const isImageInFolder = await isFileExisting(
+			`static/uploads/avatars/${prevUser.avatarUrl}`
+		)
+		if (isImageInFolder && prevUser.avatarUrl) {
+			await fs.unlink(
 				path.resolve(`static/uploads/avatars/${prevUser.avatarUrl}`)
-			))
+			)
+		}
 
 		const user = await User.findByIdAndUpdate(
 			id,
