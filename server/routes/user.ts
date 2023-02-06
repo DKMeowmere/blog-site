@@ -11,6 +11,7 @@ import requireAuth from "../middleware/requireAuth.js"
 import multer from "multer"
 import CustomRequest from "../types/customRequest.js"
 import path from "path"
+import crypto from "crypto"
 
 const storage = multer.diskStorage({
 	destination(req, file, callback) {
