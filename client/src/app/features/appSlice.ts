@@ -5,8 +5,8 @@ import { Alert } from "../../types/alert"
 
 const initialState: AppState = {
 	user: null,
-	serverUrl: import.meta.env.SERVER_URL || "http://localhost:4000",
-	appUrl: import.meta.env.CLIENT_URL || "http://localhost:5173",
+	serverUrl: import.meta.env.VITE_SERVER_URL || "http://localhost:4000",
+	appUrl: import.meta.env.VITE_CLIENT_URL || "http://localhost:5173",
 	alerts: [],
 	alertLifeTime: 5000,
 }
