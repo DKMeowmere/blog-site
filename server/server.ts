@@ -6,7 +6,7 @@ import { config } from "dotenv"
 import userRouter from "./routes/user.js"
 import blogsRouter from "./routes/blogs.js"
 
-const port = 4000
+const port: number = process.env.PORT ? parseInt(process.env.PORT) : 4000
 const app = express()
 app.use(morgan("dev"))
 app.use(express.json())
