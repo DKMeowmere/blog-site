@@ -5,10 +5,11 @@ import User from "../models/user.js"
 import CustomRequest from "../types/customRequest.js"
 import fs from "fs/promises"
 import path from "path"
+import isFileExisting from "../functions/isFileExisting.js"
 
 export async function getBlogs(req: Request, res: Response) {
 	try {
-		const creatorId = req.query.creatorId 
+		const creatorId = req.query.creatorId
 		if (!mongoose.isValidObjectId(creatorId) && creatorId) {
 			throw Error("Podałeś złe id autora")
 		}
@@ -18,7 +19,7 @@ export async function getBlogs(req: Request, res: Response) {
 					creatorId,
 			  }).sort({ createdAt: -1 })
 			: await Blog.find({}).sort({ createdAt: -1 })
-		
+
 		res.json(blogs)
 	} catch (err: any) {
 		res.status(400).json({ error: err.message })
@@ -96,10 +97,15 @@ export async function updateBlog(req: CustomRequest, res: Response) {
 			throw Error("Nie znaleziono")
 		}
 
-		req.file &&
-			(await fs.unlink(
+		const isImageInFolder = await isFileExisting(
+			`static/uploads/blog-images/${prevBlog.imageUrl}`
+		)
+
+		if (isImageInFolder && prevBlog.imageUrl) {
+			await fs.unlink(
 				path.resolve(`static/uploads/blog-images/${prevBlog.imageUrl}`)
-			))
+			)
+		}
 
 		const blog = await Blog.findByIdAndUpdate(
 			id,
